@@ -1,34 +1,37 @@
 from analyser.parser import read_log_file, parse_log_entry
-from analyser.detector import detect_brute_force
+from analyser.detector import (
+    detect_brute_force,
+    detect_success_after_failures
+)
 
 
 def main():
     logs = read_log_file("logs/sample_auth.log")
 
-    # Convert raw logs into structured events
     parsed_logs = [parse_log_entry(log) for log in logs]
 
-    print("=" * 50)
-    print("Parsed Events")
-    print("=" * 50)
+    print("=" * 55)
+    print("SentrySec Security Report")
+    print("=" * 55)
 
-    for event in parsed_logs:
-        print(event)
+    brute_force_alerts = detect_brute_force(parsed_logs)
+    compromise_alerts = detect_success_after_failures(parsed_logs)
 
-    print("\n" + "=" * 50)
-    print("Security Report")
-    print("=" * 50)
+    print("\n=== Brute Force Detection ===")
 
-    alerts = detect_brute_force(parsed_logs)
-
-    if not alerts:
-        print("No brute-force attacks detected.")
+    if brute_force_alerts:
+        for alert in brute_force_alerts:
+            print(alert)
     else:
-        for alert in alerts:
-            print(f"\nSeverity : {alert['severity']}")
-            print(f"Attack   : {alert['type']}")
-            print(f"IP       : {alert['ip']}")
-            print(f"Attempts : {alert['attempts']}")
+        print("No brute-force attacks detected.")
+
+    print("\n=== Account Compromise Detection ===")
+
+    if compromise_alerts:
+        for alert in compromise_alerts:
+            print(alert)
+    else:
+        print("No suspicious successful logins detected.")
 
 
 if __name__ == "__main__":
