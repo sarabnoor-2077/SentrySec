@@ -35,12 +35,21 @@ def analyze():
 
     compromise = detect_success_after_failures(parsed_logs)
 
+    total_logs = len(parsed_logs)
+
+    failed = sum(1 for e in parsed_logs if e["status"] == "Failed")
+
+    success = sum(1 for e in parsed_logs if e["status"] == "Success")
+
     return render_template(
         "results.html",
         brute_force=brute_force,
-        compromise=compromise
+        compromise=compromise,
+        total_logs=total_logs,
+        failed=failed,
+        success=success
     )
 
-
+    
 if __name__ == "__main__":
     app.run(debug=True)

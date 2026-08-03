@@ -2,29 +2,46 @@
 <html>
 
 <head>
-    <title>SentrySec</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<title>SentrySec</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>SentrySec</h1>
+<h1>🛡 SentrySec</h1>
 
-    <p>Mini SIEM for Linux SSH Authentication Logs</p>
+<p class="subtitle">
 
-    <form action="/analyze" method="POST" enctype="multipart/form-data">
+Mini SIEM for Linux SSH Authentication Logs
 
-        <input type="file" name="logfile" required>
+<br><br>
 
-        <br><br>
+Upload an authentication log and detect brute-force attacks
+and possible account compromise.
 
-        <button type="submit">
-            Analyse
-        </button>
+</p>
 
-    </form>
+<form action="/analyze"
+method="POST"
+enctype="multipart/form-data">
+
+<input type="file"
+name="logfile"
+required>
+
+<button>
+
+Analyse Log
+
+</button>
+
+</form>
 
 </div>
 
