@@ -1,81 +1,108 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
 
-<title>SentrySec Results</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SentrySec - Security Report</title>
 
 <link rel="stylesheet"
 href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
 
-<h1>Security Report</h1>
+<div class="page-title">
 
-<h2>Brute Force Alerts</h2>
+<h1>🛡 SentrySec</h1>
 
-{% if brute_force %}
+<p>Security Analysis Report</p>
 
-    {% for alert in brute_force %}
+</div>
 
-        <div>
+<div class="summary">
 
-        <strong>Severity:</strong> {{ alert.severity }}<br>
+<div class="summary-card">
+<h2>{{ total_logs }}</h2>
+<p>Total Logs</p>
+</div>
 
-        <strong>IP:</strong> {{ alert.ip }}<br>
+<div class="summary-card">
+<h2>{{ failed }}</h2>
+<p>Failed Logins</p>
+</div>
 
-        <strong>Attempts:</strong> {{ alert.attempts }}
+<div class="summary-card">
+<h2>{{ success }}</h2>
+<p>Successful Logins</p>
+</div>
 
-        </div>
+<div class="summary-card">
+<h2>{{ brute_force|length + compromise|length }}</h2>
+<p>Threats</p>
+</div>
 
-        <hr>
+</div>
 
-    {% endfor %}
+<h2 class="section-title">Threat Detection</h2>
 
-{% else %}
+{% for alert in brute_force %}
 
-No brute-force attacks detected.
+<div class="alert-card high">
 
-{% endif %}
+<div class="badge high">HIGH</div>
 
-<h2>Possible Account Compromise</h2>
+<h3>🚨 SSH Brute Force</h3>
 
-{% if compromise %}
+<p><strong>Source IP:</strong> {{ alert.ip }}</p>
 
-    {% for alert in compromise %}
+<p><strong>Attempts:</strong> {{ alert.attempts }}</p>
 
-        <div>
+<p><strong>Recommendation:</strong> Investigate repeated login attempts and block the source if malicious.</p>
 
-        <strong>Severity:</strong> {{ alert.severity }}<br>
+</div>
 
-        <strong>User:</strong> {{ alert.username }}<br>
+{% endfor %}
 
-        <strong>IP:</strong> {{ alert.ip }}<br>
+{% for alert in compromise %}
 
-        <strong>Failed Attempts:</strong> {{ alert.failed_attempts }}
+<div class="alert-card critical">
 
-        </div>
+<div class="badge critical">CRITICAL</div>
 
-        <hr>
+<h3>🔒 Possible Account Compromise</h3>
 
-    {% endfor %}
+<p><strong>User:</strong> {{ alert.username }}</p>
 
-{% else %}
+<p><strong>Source IP:</strong> {{ alert.ip }}</p>
 
-No suspicious successful logins.
+<p><strong>Failed Attempts:</strong> {{ alert.failed_attempts }}</p>
 
-{% endif %}
+<p><strong>Recommendation:</strong> Review account activity and consider forcing a password reset.</p>
 
-<br>
+</div>
 
-<a href="/">Analyze another file</a>
+{% endfor %}
+
+<a href="/" class="back-link">← Analyze another log</a>
 
 </div>
 
 </body>
-
 </html>

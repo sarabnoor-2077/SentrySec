@@ -1,50 +1,60 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentrySec</title>
 
-<title>SentrySec</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
+<div class="hero">
 
-<h1>🛡 SentrySec</h1>
+    <div class="logo">
+        🛡
+        <span>SentrySec</span>
+    </div>
 
-<p class="subtitle">
+    <h1>Mini Security Information<br>and Event Management</h1>
 
-Mini SIEM for Linux SSH Authentication Logs
+    <p>
+        Analyse Linux SSH authentication logs to detect brute-force
+        attacks and suspicious login behaviour.
+    </p>
 
-<br><br>
+    <form action="/analyze"
+          method="POST"
+          enctype="multipart/form-data">
 
-Upload an authentication log and detect brute-force attacks
-and possible account compromise.
+        <label class="upload-box">
 
-</p>
+            📄 Choose authentication log
 
-<form action="/analyze"
-method="POST"
-enctype="multipart/form-data">
+            <input
+                type="file"
+                name="logfile"
+                required
+            >
 
-<input type="file"
-name="logfile"
-required>
+        </label>
 
-<button>
+        <button type="submit">
+            Analyse Security Logs →
+        </button>
 
-Analyse Log
-
-</button>
-
-</form>
+    </form>
 
 </div>
 
-</body>
 
+</body>
 </html>
