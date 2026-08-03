@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SentrySec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>SentrySec</h1>
+
+    <p>Mini SIEM for Linux SSH Authentication Logs</p>
+
+    <form action="/analyze" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="logfile" required>
+
+        <br><br>
+
+        <button type="submit">
+            Analyse
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

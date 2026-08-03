@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>SentrySec Results</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Security Report</h1>
+
+<h2>Brute Force Alerts</h2>
+
+{% if brute_force %}
+
+    {% for alert in brute_force %}
+
+        <div>
+
+        <strong>Severity:</strong> {{ alert.severity }}<br>
+
+        <strong>IP:</strong> {{ alert.ip }}<br>
+
+        <strong>Attempts:</strong> {{ alert.attempts }}
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+No brute-force attacks detected.
+
+{% endif %}
+
+<h2>Possible Account Compromise</h2>
+
+{% if compromise %}
+
+    {% for alert in compromise %}
+
+        <div>
+
+        <strong>Severity:</strong> {{ alert.severity }}<br>
+
+        <strong>User:</strong> {{ alert.username }}<br>
+
+        <strong>IP:</strong> {{ alert.ip }}<br>
+
+        <strong>Failed Attempts:</strong> {{ alert.failed_attempts }}
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+No suspicious successful logins.
+
+{% endif %}
+
+<br>
+
+<a href="/">Analyze another file</a>
+
+</div>
+
+</body>
+
+</html>
