@@ -7,10 +7,18 @@ from analyser.detector import (
     detect_success_after_failures
 )
 
+from database import (
+    initialize_database,
+    save_scan
+)
+
 app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+# Create the SQLite database (only if it doesn't already exist)
+initialize_database()
 
 
 @app.route("/")
@@ -41,6 +49,17 @@ def analyze():
 
     success = sum(1 for e in parsed_logs if e["status"] == "Success")
 
+    threat_count = len(brute_force) + len(compromise)
+
+    # Save this scan to SQLite
+    save_scan(
+        file.filename,
+        total_logs,
+        failed,
+        success,
+        threat_count
+    )
+
     return render_template(
         "results.html",
         brute_force=brute_force,
@@ -50,6 +69,6 @@ def analyze():
         success=success
     )
 
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
