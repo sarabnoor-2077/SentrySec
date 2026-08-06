@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SentrySec Analytics</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="page-title">
+
+<h1>📊 Security Analytics</h1>
+
+<p>Statistics from all stored scans</p>
+
+</div>
+
+<div class="summary-grid">
+
+<div class="summary-card">
+
+<h2>{{ stats.total_scans }}</h2>
+
+<p>Total Scans</p>
+
+</div>
+
+<div class="summary-card">
+
+<h2>{{ stats.total_threats }}</h2>
+
+<p>Total Threats</p>
+
+</div>
+
+<div class="summary-card">
+
+<h2>{{ stats.average_threats }}</h2>
+
+<p>Average Threats / Scan</p>
+
+</div>
+
+<div class="summary-card">
+
+<h2>{{ stats.clean_scans }}</h2>
+
+<p>Clean Scans</p>
+
+</div>
+
+</div>
+
+<div class="button-group">
+
+<a href="/" class="secondary-btn">
+← Home
+</a>
+
+<a href="/history" class="primary-btn">
+📜 Scan History
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
