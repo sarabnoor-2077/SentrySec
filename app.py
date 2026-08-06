@@ -9,7 +9,8 @@ from analyser.detector import (
 
 from database import (
     initialize_database,
-    save_scan
+    save_scan,
+    get_history
 )
 
 app = Flask(__name__)
@@ -69,6 +70,15 @@ def analyze():
         success=success
     )
 
+@app.route("/history")
+def history():
+
+    scans = get_history()
+
+    return render_template(
+        "history.html",
+        scans=scans
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

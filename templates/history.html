@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SentrySec - Scan History</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="page-title">
+
+<h1>🛡 SentrySec</h1>
+
+<p>Previous Security Scans</p>
+
+</div>
+
+<table class="history-table">
+
+<tr>
+
+<th>ID</th>
+
+<th>File</th>
+
+<th>Date</th>
+
+<th>Total Logs</th>
+
+<th>Threats</th>
+
+</tr>
+
+{% for scan in scans %}
+
+<tr>
+
+<td>{{ scan[0] }}</td>
+
+<td>{{ scan[1] }}</td>
+
+<td>{{ scan[2] }}</td>
+
+<td>{{ scan[3] }}</td>
+
+<td>{{ scan[6] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/" class="back-link">
+← Back to Home
+</a>
+
+</div>
+
+</body>
+
+</html>
