@@ -187,13 +187,16 @@ button:hover{
 
 .footer{
 
-    margin-top:35px;
+    margin:50px 0 20px;
+
+    text-align:center;
 
     color:#6B7280;
 
     font-size:14px;
 
-    text-align:center;
+    letter-spacing:.5px;
+
 }
 
 /* =========================
@@ -269,18 +272,41 @@ button:hover{
     padding:30px;
     text-align:center;
     box-shadow:0 0 25px rgba(139,92,246,.08);
+    border:1px solid transparent;
+    transition:.3s ease;
+}
+
+.summary-card:hover{
+    transform:translateY(-6px);
+    border-color:#8B5CF6;
+    box-shadow:0 0 30px rgba(139,92,246,.25);
 }
 
 .summary-card h2{
     color:#8B5CF6;
     font-size:38px;
     margin-bottom:10px;
+    animation:pop .6s ease;
 }
 
 .summary-card p{
     margin:0;
     color:#9CA3AF;
     font-size:15px;
+}
+
+@keyframes pop{
+
+    0%{
+        transform:scale(.6);
+        opacity:0;
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+
 }
 
 /* ---------- Alerts ---------- */
@@ -442,7 +468,8 @@ button:hover{
 
     transform:translateY(-3px);
 
-    box-shadow:0 12px 30px rgba(139,92,246,.25);
+    box-shadow:0 0 22px rgba(139,92,246,.45);
+
 }
 
 .secondary-btn{
@@ -461,4 +488,112 @@ button:hover{
     color:white;
 
     transform:translateY(-3px);
+
+    box-shadow:0 0 18px rgba(139,92,246,.35);
+
+}
+
+/* ---------- Analytics Dashboard ---------- */
+
+.analytics-page{
+
+    width:90%;
+    max-width:1400px;
+
+    margin:60px auto;
+
+}
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+    margin:40px 0;
+
+}
+
+.chart-card{
+
+    background:#1b1f27;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin-top:35px;
+
+    box-shadow:0 0 20px rgba(139,92,246,.15);
+
+    transition:.3s ease;
+
+}
+
+.chart-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 0 30px rgba(139,92,246,.25);
+
+}
+
+.chart-card h2{
+
+    color:white;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    font-size:32px;
+
+}
+
+.chart-card p{
+
+    text-align:center;
+
+    color:#9CA3AF;
+
+    margin-bottom:30px;
+
+}
+
+.chart-container{
+
+    width:100%;
+
+    height:450px;
+
+}
+
+.chart-container canvas{
+
+    width:100%!important;
+
+    height:100%!important;
+
+}
+
+@media(max-width:900px){
+
+    .summary-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .summary-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
 }

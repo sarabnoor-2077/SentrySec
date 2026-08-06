@@ -11,7 +11,8 @@ from database import (
     initialize_database,
     save_scan,
     get_history,
-    get_statistics
+    get_statistics,
+    get_chart_data
 )
 
 app = Flask(__name__)
@@ -86,9 +87,13 @@ def analytics():
 
     stats = get_statistics()
 
+    labels, threats = get_chart_data()
+
     return render_template(
         "analytics.html",
-        stats=stats
+        stats=stats,
+        labels=labels,
+        threats=threats
     )
 
 if __name__ == "__main__":

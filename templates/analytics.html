@@ -3,90 +3,191 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <title>SentrySec Analytics</title>
 
-<title>SentrySec Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
-rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+<div class="analytics-page">
 
-<div class="page-title">
+    <div class="page-title">
+        <h1>📊 Security Analytics</h1>
+        <p>Statistics from all stored scans</p>
+    </div>
 
-<h1>📊 Security Analytics</h1>
+    <!-- Statistics Cards -->
 
-<p>Statistics from all stored scans</p>
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <h2>{{ stats.total_scans }}</h2>
+            <p>Total Scans</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ stats.total_threats }}</h2>
+            <p>Total Threats</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ stats.average_threats }}</h2>
+            <p>Average Threats / Scan</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ stats.clean_scans }}</h2>
+            <p>Clean Scans</p>
+        </div>
+
+    </div>
+
+    <!-- Chart -->
+
+    <div class="chart-card">
+
+        <h2>📈 Threat Trend Analysis</h2>
+
+            <p>
+                Threats detected across previous security scans
+            </p>
+
+        <div class="chart-container">
+            <canvas id="threatChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="button-group">
+
+        <a href="/" class="secondary-btn">
+            ← Home
+        </a>
+
+        <a href="/history" class="primary-btn">
+            📜 Scan History
+        </a>
+
+    </div>
 
 </div>
 
-<div class="summary-grid">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="summary-card">
+<script>
 
-<h2>{{ stats.total_scans }}</h2>
+const ctx = document.getElementById("threatChart");
 
-<p>Total Scans</p>
+new Chart(ctx, {
 
-</div>
+    type: "bar",
 
-<div class="summary-card">
+    data: {
 
-<h2>{{ stats.total_threats }}</h2>
+        labels: {{ labels | tojson }},
 
-<p>Total Threats</p>
+        datasets: [{
 
-</div>
+            label: "Threats Detected",
 
-<div class="summary-card">
+            data: {{ threats | tojson }},
 
-<h2>{{ stats.average_threats }}</h2>
+            backgroundColor: "#8B5CF6",
 
-<p>Average Threats / Scan</p>
+            borderColor: "#A855F7",
 
-</div>
+            borderWidth: 2,
 
-<div class="summary-card">
+            borderRadius: 8,
 
-<h2>{{ stats.clean_scans }}</h2>
+            barPercentage: 0.6,
 
-<p>Clean Scans</p>
+            categoryPercentage: 0.7
 
-</div>
+        }]
 
-</div>
+    },
 
-<div class="button-group">
+    options: {
 
-<a href="/" class="secondary-btn">
-← Home
-</a>
+        responsive: true,
 
-<a href="/history" class="primary-btn">
-📜 Scan History
-</a>
+        maintainAspectRatio: false,
 
-</div>
+        animation: {
 
-</div>
+            duration: 1200
+
+        },
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                grid: {
+
+                    color: "#333"
+
+                },
+
+                ticks: {
+
+                    color: "#ffffff"
+
+                }
+
+            },
+
+            y: {
+
+                beginAtZero: true,
+
+                grid: {
+
+                    color: "#333"
+
+                },
+
+                ticks: {
+
+                    color: "#ffffff",
+
+                    stepSize: 1
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
 
 </body>
-
 </html>

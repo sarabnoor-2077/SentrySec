@@ -4,7 +4,12 @@ DATABASE = "sentrysec.db"
 
 
 def get_connection():
-    return sqlite3.connect(DATABASE)
+
+    conn = sqlite3.connect(DATABASE)
+
+    conn.row_factory = sqlite3.Row
+
+    return conn
 
 
 def initialize_database():
@@ -122,3 +127,27 @@ def get_statistics():
         "average_threats": round(average_threats, 2),
         "clean_scans": clean_scans
     }
+
+def get_chart_data():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, threat_count
+        FROM scan_history
+        ORDER BY id
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    labels = []
+    threats = []
+
+    for row in rows:
+        labels.append(f"Scan {row['id']}")
+        threats.append(row["threat_count"])
+
+    return labels, threats
