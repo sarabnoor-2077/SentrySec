@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Threat Investigation | SentrySec</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="analytics-page">
+
+    <div class="page-title">
+
+        <h1>🛡 Threat Investigation</h1>
+
+        <p>Detailed information for Scan #{{ scan.id }}</p>
+
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-card" style="overflow: visible;">
+
+            <div style="
+                color: red;
+                font-size: 20px;
+                white-space: normal;
+                word-break: break-word;
+            ">
+                {{ scan.filename }}
+            </div>
+
+            <p>Filename</p>
+
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ scan.total_logs }}</h2>
+            <p>Total Logs</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ scan.threat_count }}</h2>
+            <p>Threats Found</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>{{ scan.scan_time }}</h2>
+            <p>Scan Time</p>
+        </div>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h2>Detected Threats</h2>
+
+        {% if threats %}
+
+            {% for threat in threats %}
+
+            <div class="alert-card">
+
+                <span class="badge {{ threat.severity.lower() }}">
+                    {{ threat.severity }}
+                </span>
+
+                <h3>{{ threat.message }}</h3>
+
+                <p><strong>IP Address:</strong> {{ threat.ip_address }}</p>
+
+                <p><strong>Event Time:</strong> {{ threat.log_time }}</p>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No threats detected for this scan.</p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="button-group">
+
+        <a href="/history" class="secondary-btn">
+            ← Back to History
+        </a>
+
+        <a href="/" class="primary-btn">
+            Home
+        </a>
+
+    </div>
+
+</div>
+
+<footer class="footer">
+    SentrySec v1.0 • Threat Investigation
+</footer>
+
+</body>
+</html>

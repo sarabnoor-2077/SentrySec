@@ -38,6 +38,27 @@ def initialize_database():
         )
     """)
 
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS threat_details (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        scan_id INTEGER,
+
+        severity TEXT,
+
+        message TEXT,
+
+        ip_address TEXT,
+
+        log_time TEXT,
+
+        FOREIGN KEY(scan_id)
+            REFERENCES scan_history(id)
+
+        )
+    """)
+
     conn.commit()
     conn.close()
 
@@ -73,9 +94,12 @@ def save_scan(filename,
         threats
     ))
 
+    scan_id = cursor.lastrowid
+
     conn.commit()
     conn.close()
 
+    return scan_id
 
 def get_history():
 
@@ -151,3 +175,72 @@ def get_chart_data():
         threats.append(row["threat_count"])
 
     return labels, threats
+
+def get_scan(scan_id):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM scan_history
+        WHERE id = ?
+    """, (scan_id,))
+
+    scan = cursor.fetchone()
+
+    conn.close()
+
+    return scan
+
+
+def get_threats(scan_id):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM threat_details
+        WHERE scan_id = ?
+        ORDER BY id
+    """, (scan_id,))
+
+    threats = cursor.fetchall()
+
+    conn.close()
+
+    return threats
+
+def save_threat(scan_id, severity, message, ip_address, log_time):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO threat_details
+        (
+            scan_id,
+            severity,
+            message,
+            ip_address,
+            log_time
+        )
+
+        VALUES
+        (?, ?, ?, ?, ?)
+    """,
+    (
+        scan_id,
+        severity,
+        message,
+        ip_address,
+        log_time
+    ))
+
+    conn.commit()
+
+    conn.close()

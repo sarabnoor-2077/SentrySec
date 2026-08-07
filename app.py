@@ -10,9 +10,12 @@ from analyser.detector import (
 from database import (
     initialize_database,
     save_scan,
+    save_threat,
     get_history,
     get_statistics,
-    get_chart_data
+    get_chart_data,
+    get_scan,
+    get_threats
 )
 
 app = Flask(__name__)
@@ -54,14 +57,36 @@ def analyze():
 
     threat_count = len(brute_force) + len(compromise)
 
-    # Save this scan to SQLite
-    save_scan(
+    # Save this scan and get its ID
+    scan_id = save_scan(
         file.filename,
         total_logs,
         failed,
         success,
         threat_count
     )
+
+    # Save brute force alerts
+    for alert in brute_force:
+
+        save_threat(
+            scan_id,
+            alert["severity"],
+            alert["type"],
+            alert["ip"],
+            "N/A"  # No specific log time for brute force alerts
+        )
+
+    # Save compromise alerts
+    for alert in compromise:
+
+        save_threat(
+            scan_id,
+            alert["severity"],
+            alert["type"],
+            alert["ip"],
+            "N/A"  # No specific log time for compromise alerts
+        )
 
     return render_template(
         "results.html",
@@ -93,6 +118,19 @@ def analytics():
         "analytics.html",
         stats=stats,
         labels=labels,
+        threats=threats
+    )
+
+@app.route("/scan/<int:scan_id>")
+def scan_details(scan_id):
+
+    scan = dict(get_scan(scan_id))   # <-- change this line
+
+    threats = [dict(t) for t in get_threats(scan_id)]
+
+    return render_template(
+        "scan_details.html",
+        scan=scan,
         threats=threats
     )
 

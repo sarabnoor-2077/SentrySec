@@ -55,17 +55,20 @@ rel="stylesheet">
 
 {% for scan in scans %}
 
-<tr>
+<tr
+    onclick="window.location='/scan/{{ scan[0] }}'"
+    style="cursor:pointer;"
+>
 
-<td>{{ scan[0] }}</td>
+    <td>{{ scan[0] }}</td>
 
-<td>{{ scan[1] }}</td>
+    <td>{{ scan[1] }}</td>
 
-<td>{{ scan[2] }}</td>
+    <td>{{ scan[2] }}</td>
 
-<td>{{ scan[3] }}</td>
+    <td>{{ scan[3] }}</td>
 
-<td>{{ scan[6] }}</td>
+    <td>{{ scan[6] }}</td>
 
 </tr>
 

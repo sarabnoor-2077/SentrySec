@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SentrySec</title>
 
     <link rel="stylesheet"
@@ -13,60 +16,67 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
           rel="stylesheet">
+
 </head>
 
 <body>
 
-<div class="hero">
+<div class="home-page">
 
-    <div class="logo">
-        🛡
-        <span>SentrySec</span>
-    </div>
+    <div class="hero">
 
-    <h1>Mini Security Information<br>and Event Management</h1>
-
-    <p>
-        Analyse Linux SSH authentication logs to detect brute-force
-        attacks and suspicious login behaviour.
-    </p>
-
-    <form action="/analyze"
-          method="POST"
-          enctype="multipart/form-data">
-
-        <label class="upload-box">
-
-            📄 Choose authentication log
-
-            <input
-                type="file"
-                name="logfile"
-                required
-            >
-
-        </label>
-
-        <div class="button-group">
-
-            <button type="submit" class="primary-btn">
-                 Analyse Security Logs →
-            </button>
-
-            <a href="/history" class="secondary-btn">
-                    Scan History
-            </a>
-
-            <a href="/analytics" class="secondary-btn">
-                    Analytics
-            </a>
-
+        <div class="logo">
+            🛡
+            <span>SentrySec</span>
         </div>
 
-    </form>
+        <h1>
+            Mini Security Information<br>
+            and Event Management
+        </h1>
+
+        <p>
+            Analyse Linux SSH authentication logs to detect brute-force
+            attacks and suspicious login behaviour.
+        </p>
+
+        <form action="/analyze"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <label class="upload-box">
+
+                📄 Choose authentication log
+
+                <input
+                    type="file"
+                    name="logfile"
+                    required>
+
+            </label>
+
+            <div class="button-group">
+
+                <button type="submit" class="primary-btn">
+                    Analyse Security Logs →
+                </button>
+
+                <a href="/history" class="secondary-btn">
+                    Scan History
+                </a>
+
+                <a href="/analytics" class="secondary-btn">
+                    Analytics
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-
 </body>
+
 </html>
