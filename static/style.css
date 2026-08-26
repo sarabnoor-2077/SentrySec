@@ -611,3 +611,53 @@ button:hover{
     }
 
 }
+
+/* ---------- Scan Details ---------- */
+
+.filename-card{
+
+    color:#E6EDF3;
+
+    font-size:20px;
+
+    font-weight:600;
+
+    line-height:1.5;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
+
+    min-height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+}
+
+.datetime-card{
+
+    color:#8B5CF6;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    line-height:1.5;
+
+    min-height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+}

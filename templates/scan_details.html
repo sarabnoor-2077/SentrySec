@@ -37,14 +37,9 @@
 
     <div class="summary-grid">
 
-        <div class="summary-card" style="overflow: visible;">
+        <div class="summary-card">
 
-            <div style="
-                color: red;
-                font-size: 20px;
-                white-space: normal;
-                word-break: break-word;
-            ">
+            <div class="filename-card">
                 {{ scan.filename }}
             </div>
 
@@ -53,21 +48,33 @@
         </div>
 
         <div class="summary-card">
+
             <h2>{{ scan.total_logs }}</h2>
+
             <p>Total Logs</p>
+
         </div>
 
         <div class="summary-card">
+
             <h2>{{ scan.threat_count }}</h2>
+
             <p>Threats Found</p>
+
         </div>
 
         <div class="summary-card">
-            <h2>{{ scan.scan_time }}</h2>
+
+            <div class="datetime-card">
+                {{ scan.scan_time }}
+            </div>
+
             <p>Scan Time</p>
+
         </div>
 
     </div>
+
 
     <div class="chart-card">
 
@@ -80,7 +87,7 @@
             <div class="alert-card">
 
                 <span class="badge {{ threat.severity.lower() }}">
-                    {{ threat.severity }}
+                {{ threat.severity }}
                 </span>
 
                 <h3>{{ threat.message }}</h3>
