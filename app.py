@@ -74,7 +74,7 @@ def analyze():
             alert["severity"],
             alert["type"],
             alert["ip"],
-            "N/A"  # No specific log time for brute force alerts
+            alert["timestamp"]
         )
 
     # Save compromise alerts
@@ -85,7 +85,7 @@ def analyze():
             alert["severity"],
             alert["type"],
             alert["ip"],
-            "N/A"  # No specific log time for compromise alerts
+            alert["timestamp"]
         )
 
     return render_template(
